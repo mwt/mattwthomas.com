@@ -28,12 +28,8 @@
  * offset for anchor links on headers due to fixed navbar
  */
 
-.anchor:target:before,
-h2:target:before
-	content: ""
-	display: block
-	height: 70px
-	margin: -70px 0 0
+.anchor, h2
+	scroll-margin-top: 70px
 
 /*
  * animations

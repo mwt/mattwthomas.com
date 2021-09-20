@@ -7,7 +7,7 @@
 <div class="{{ include.class | default: "projects" }}">
 <section class="list">
     {%- for project in include.data -%}
-    <div class="item{% if project.star %} star{% endif %}">
+    <div class="item{% if project.star %} star{% endif %}{% if include.class == 'papers' and project.content %} anchor" id="{{ project.slug }}{% endif %}">
         <h4>
             <a class="title" href="
             {%- if project.url_is_pdf -%}
@@ -35,6 +35,11 @@
         {%- if project.description -%}
         <p class="description">{{ project.description }}</p>
         {%- endif -%}
+
+        {% if include.class == "papers" and project.content %}
+        <a class="atoggle aon" href="#{{ project.slug }}">Abstract</a>
+        <a class="atoggle aoff" href="#!">Abstract</a>
+        {% endif %}
         
         {%- if project.github -%}
         <a class="icon-link" href="{{ project.github }}" target="_blank">
@@ -61,12 +66,8 @@
         </a>
         {%- endif -%}
         {% if include.class == "papers" and project.content %}
-        <div class="atoggle">
-            <input type="checkbox" id="toggle" name="abstract-toggle" />
-            <label for="toggle">Abstract</label>
-            <div class = "abstract content">
-                {{ project.content | markdownify }}
-            </div>
+        <div class = "abstract content">
+            {{ project.content | markdownify }}
         </div>
         {% endif %}
     </div>
